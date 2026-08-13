@@ -135,3 +135,165 @@
   font-size: 12px;
   color: #cfcdd8;
 }
+
+.view-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 8px 10px 0;
+  -webkit-app-region: no-drag;
+}
+
+.tab {
+  flex: 1;
+  padding: 6px 8px;
+  font-size: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #cfcdd8;
+  cursor: pointer;
+}
+
+.tab.active {
+  background: rgba(255, 70, 85, 0.25);
+  border-color: rgba(255, 70, 85, 0.5);
+  color: #fff;
+}
+
+.manager {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.manager-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.manager-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+.manager-item strong {
+  display: block;
+  font-size: 12px;
+}
+
+.manager-item .lineup-meta {
+  margin-bottom: 0;
+}
+
+.manager-item-actions {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.manager-item-actions button {
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #e8e6ef;
+  cursor: pointer;
+}
+
+.manager-item-actions button:hover {
+  background: rgba(255, 70, 85, 0.35);
+}
+
+.btn-primary,
+.btn-secondary {
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: #ff4655;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #ff5f6c;
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.08);
+  color: #e8e6ef;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.btn-full {
+  width: 100%;
+}
+
+.lineup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lineup-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 11px;
+  color: #9a97a8;
+  flex: 1;
+}
+
+.lineup-form input,
+.lineup-form select,
+.lineup-form textarea {
+  background: rgba(255, 255, 255, 0.06);
+  color: #e8e6ef;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 12px;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.form-row {
+  display: flex;
+  gap: 8px;
+}
+
+.form-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-preview img,
+.form-preview video {
+  width: 100%;
+  border-radius: 6px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 4px;
+}

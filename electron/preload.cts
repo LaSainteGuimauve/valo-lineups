@@ -6,4 +6,6 @@ contextBridge.exposeInMainWorld('overlay', {
   onClickThroughChanged: (callback: (clickThrough: boolean) => void) => {
     ipcRenderer.on('click-through-changed', (_event, value) => callback(value))
   },
+  loadCustomLineups: () => ipcRenderer.invoke('lineups:load'),
+  saveCustomLineups: (lineups: unknown) => ipcRenderer.invoke('lineups:save', lineups),
 })

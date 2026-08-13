@@ -1,7 +1,9 @@
 import { app, BrowserWindow, globalShortcut, ipcMain, screen } from 'electron'
 import path from 'node:path'
+import fs from 'node:fs/promises'
 
 const isDev = !app.isPackaged
+const customLineupsPath = () => path.join(app.getPath('userData'), 'custom-lineups.json')
 
 let mainWindow: BrowserWindow | null = null
 
@@ -81,4 +83,18 @@ ipcMain.on('close-app', () => {
 
 ipcMain.on('minimize-window', () => {
   mainWindow?.minimize()
+})
+
+ipcMain.handle('lineups:load', async () => {
+  try {
+    const raw = await fs.readFile(customLineupsPath(), 'utf-8')
+    return JSON.parse(raw)
+  } catch {
+    return []
+  }
+})
+
+ipcMain.handle('lineups:save', async (_event, lineups: unknown) => {
+  await fs.writeFile(customLineupsPath(), JSON.stringify(lineups, null, 2), 'utf-8')
+  return true
 })
