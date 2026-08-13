@@ -3,11 +3,16 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "main": "dist-electron/main.cjs",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "electron:build": "tsc -p electron/tsconfig.json",
+    "electron:dev": "concurrently -k \"npm:dev\" \"wait-on tcp:5173 && npm run electron:build && electron .\"",
+    "electron:start": "npm run build && npm run electron:build && electron .",
+    "electron:package": "npm run build && npm run electron:build && electron-builder"
   },
   "dependencies": {
     "react": "^19.2.8",
@@ -26,5 +31,25 @@
     "typescript": "~6.0.2",
     "vite": "^8.2.0",
     "wait-on": "^9.1.0"
+  },
+  "build": {
+    "appId": "com.valolineups.app",
+    "productName": "VALO Lineups",
+    "files": [
+      "dist/**/*",
+      "dist-electron/**/*"
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "mac": {
+      "target": "dmg"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
   }
 }

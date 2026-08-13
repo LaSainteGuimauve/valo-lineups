@@ -1,32 +1,54 @@
-# React + TypeScript + Vite
+# VALO Lineups
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Overlay compagnon pour Valorant : sélection manuelle map / site / agent, affichage
+des line-ups (image ou vidéo) par-dessus le jeu (fenêtré ou borderless).
 
-Currently, two official plugins are available:
+Ce projet n'utilise **aucune lecture de mémoire du jeu ni d'API live** — Riot ne
+fournit pas de flux temps réel pour Valorant, et Vanguard (l'anti-cheat) interdit
+toute interaction avec le processus du jeu. L'app reste donc un simple overlay
+piloté à la main, ce qui est l'approche utilisée par tous les outils de ce type
+qui existent aujourd'hui.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Stack
 
-## React Compiler
+- Electron (fenêtre overlay transparente, toujours au-dessus)
+- React + TypeScript + Vite (interface)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Développement
 
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+npm run electron:dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Lance Vite en dev server + Electron en parallèle, avec hot-reload du renderer.
+
+## Build / packaging
+
+```bash
+npm run electron:package
+```
+
+Génère l'installeur (`release/`) via electron-builder (NSIS sur Windows, dmg sur
+Mac, AppImage sur Linux).
+
+## Raccourcis clavier (globaux, fonctionnent même jeu au premier plan)
+
+- `Ctrl+Shift+L` : afficher / masquer l'overlay
+- `Ctrl+Shift+K` : activer / désactiver le click-through (laisse les clics
+  passer à travers vers le jeu, utile pendant que tu joues)
+
+## Ajouter des line-ups
+
+Les données vivent dans `src/data/lineups.ts` (structure définie dans
+`src/data/types.ts`). Chaque entrée a une map, un agent, un site, une capacité,
+et une image (`imageUrl`) ou vidéo (`videoUrl`). Place tes médias dans
+`public/lineups/` et référence-les en `/lineups/nom-du-fichier.png`.
+
+## Prochaines étapes possibles
+
+- Écran d'édition/import de line-ups directement dans l'app
+- Recherche/tri par capacité (smoke, molly, flash...)
+- Mode "favoris" par agent joué
+- Détection de la map via OCR sur le menu (sans lire la mémoire du jeu) pour
+  pré-sélectionner automatiquement le filtre
