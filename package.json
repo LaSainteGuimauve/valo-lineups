@@ -46,7 +46,8 @@
     "publish": {
       "provider": "github",
       "owner": "LaSainteGuimauve",
-      "repo": "valo-lineups"
+      "repo": "valo-lineups",
+      "releaseType": "release"
     },
     "win": {
       "target": "nsis"
