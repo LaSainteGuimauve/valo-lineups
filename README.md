@@ -13,6 +13,15 @@ qui existent aujourd'hui.
 
 - Electron (fenêtre overlay transparente, toujours au-dessus)
 - React + TypeScript + Vite (interface)
+- electron-updater (mise à jour automatique en arrière-plan)
+
+## Installation (utilisateur final)
+
+Télécharge le dernier installeur depuis l'onglet
+[Releases](https://github.com/LaSainteGuimauve/valo-lineups/releases) (fichier
+`.exe` pour Windows) et lance-le. Aucune commande requise, et l'app se met à
+jour toute seule ensuite (vérification au démarrage + toutes les heures,
+installation silencieuse au prochain redémarrage de l'app).
 
 ## Développement
 
@@ -31,6 +40,19 @@ npm run electron:package
 
 Génère l'installeur (`release/`) via electron-builder (NSIS sur Windows, dmg sur
 Mac, AppImage sur Linux).
+
+## Publier une nouvelle version
+
+Une release GitHub Actions (`.github/workflows/release.yml`) se déclenche sur
+chaque tag `vX.Y.Z` poussé sur `main` : elle build l'installeur Windows et le
+publie automatiquement sur la page Releases. Les apps déjà installées le
+détecteront ensuite toutes seules via electron-updater, sans action de
+l'utilisateur.
+
+```bash
+npm version patch   # ou minor / major — bump package.json + crée le tag git
+git push && git push --tags
+```
 
 ## Raccourcis clavier (globaux, fonctionnent même jeu au premier plan)
 

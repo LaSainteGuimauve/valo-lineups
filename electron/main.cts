@@ -1,4 +1,5 @@
 import { app, BrowserWindow, globalShortcut, ipcMain, screen } from 'electron'
+import { autoUpdater } from 'electron-updater'
 import path from 'node:path'
 import fs from 'node:fs/promises'
 
@@ -44,6 +45,17 @@ function createWindow() {
 
 app.whenReady().then(() => {
   createWindow()
+
+  if (!isDev) {
+    // Checks GitHub Releases for a newer version, downloads it in the background,
+    // and installs it automatically the next time the app quits — no user action needed.
+    autoUpdater.checkForUpdatesAndNotify().catch((err) => {
+      console.error('Update check failed:', err)
+    })
+    setInterval(() => {
+      autoUpdater.checkForUpdatesAndNotify().catch(() => {})
+    }, 60 * 60 * 1000)
+  }
 
   // Ctrl+Shift+L toggles overlay visibility without alt-tabbing out of the game.
   globalShortcut.register('CommandOrControl+Shift+L', () => {
