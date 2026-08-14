@@ -1,7 +1,7 @@
 # VALO Lineups
 
 Overlay compagnon pour Valorant : sélection manuelle map / site / agent, affichage
-des line-ups (image ou vidéo) par-dessus le jeu (fenêtré ou borderless).
+des line-ups (screenshot) par-dessus le jeu (fenêtré ou borderless).
 
 Ce projet n'utilise **aucune lecture de mémoire du jeu ni d'API live** — Riot ne
 fournit pas de flux temps réel pour Valorant, et Vanguard (l'anti-cheat) interdit
@@ -62,14 +62,29 @@ git push && git push --tags
 
 ## Ajouter des line-ups
 
-Les données vivent dans `src/data/lineups.ts` (structure définie dans
-`src/data/types.ts`). Chaque entrée a une map, un agent, un site, une capacité,
-et une image (`imageUrl`) ou vidéo (`videoUrl`). Place tes médias dans
-`public/lineups/` et référence-les en `/lineups/nom-du-fichier.png`.
+Trois sources sont fusionnées dans l'écran "Parcourir" de l'app :
+
+1. **Exemples intégrés** — `src/data/lineups.ts`, buildés dans l'app, pour
+   modifier ceux-ci il faut republier une version.
+2. **Cloud (partagé)** — `data/lineups.json` + `data/images/` dans ce repo.
+   C'est la source qu'alimente le site d'admin ci-dessous ; l'app la
+   télécharge à chaque démarrage.
+3. **Local (perso, par machine)** — onglet "Ajouts locaux" dans l'app,
+   stocké uniquement sur l'appareil qui les a créés.
+
+### Site d'admin (ajouter des line-ups sans lancer l'app desktop)
+
+👉 https://lasainteguimauve.github.io/valo-lineups/
+
+Accessible depuis PC ou téléphone. Il te faut un token GitHub (instructions
+sur la page elle-même, section "Comment créer le token ?") avec accès en
+écriture uniquement sur ce repo. Le token reste dans le `localStorage` de ton
+navigateur. Chaque ajout/édition/suppression écrit directement dans
+`data/lineups.json` et `data/images/` via l'API GitHub — les apps installées
+la récupèrent au démarrage suivant.
 
 ## Prochaines étapes possibles
 
-- Écran d'édition/import de line-ups directement dans l'app
 - Recherche/tri par capacité (smoke, molly, flash...)
 - Mode "favoris" par agent joué
 - Détection de la map via OCR sur le menu (sans lire la mémoire du jeu) pour
