@@ -1,1 +1,15 @@
-[]
+[
+  {
+    "map": "ascent",
+    "site": "A",
+    "agent": "Viper",
+    "abilityType": "smoke",
+    "ability": "Poison Cloud",
+    "title": "Test 3 images",
+    "description": "Etape 1\nEtape 2",
+    "id": "1f77e279-df06-4b54-85ef-db6ee4b52b62",
+    "imageSpotUrl": "https://raw.githubusercontent.com/LaSainteGuimauve/valo-lineups/main/data/images/1f77e279-df06-4b54-85ef-db6ee4b52b62-spot.png",
+    "imageAimUrl": "https://raw.githubusercontent.com/LaSainteGuimauve/valo-lineups/main/data/images/1f77e279-df06-4b54-85ef-db6ee4b52b62-aim.png",
+    "imageLandUrl": "https://raw.githubusercontent.com/LaSainteGuimauve/valo-lineups/main/data/images/1f77e279-df06-4b54-85ef-db6ee4b52b62-land.png"
+  }
+]
