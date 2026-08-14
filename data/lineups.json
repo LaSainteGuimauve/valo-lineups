@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "map": "ascent",
+    "site": "A",
+    "agent": "Viper",
+    "abilityType": "smoke",
+    "ability": "Poison Cloud",
+    "title": "Test end-to-end",
+    "description": "Etape 1\nEtape 2",
+    "id": "4b3fd373-1ab2-4906-b673-ef4ad6042d8f"
+  }
+]
