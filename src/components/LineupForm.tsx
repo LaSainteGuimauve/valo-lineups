@@ -29,10 +29,10 @@ export function LineupForm({ initial, onSave, onCancel }: Props) {
     setForm((f) => ({ ...f, [key]: value }))
   }
 
-  function handleFile(kind: 'imageUrl' | 'videoUrl', file: File | undefined) {
+  function handleFile(file: File | undefined) {
     if (!file) return
     const reader = new FileReader()
-    reader.onload = () => update(kind, reader.result as string)
+    reader.onload = () => update('imageUrl', reader.result as string)
     reader.readAsDataURL(file)
   }
 
@@ -126,21 +126,14 @@ export function LineupForm({ initial, onSave, onCancel }: Props) {
         />
       </label>
 
-      <div className="form-row">
-        <label>
-          Image (optionnel)
-          <input type="file" accept="image/*" onChange={(e) => handleFile('imageUrl', e.target.files?.[0])} />
-        </label>
-        <label>
-          Vidéo (optionnel)
-          <input type="file" accept="video/*" onChange={(e) => handleFile('videoUrl', e.target.files?.[0])} />
-        </label>
-      </div>
+      <label>
+        Screenshot (optionnel)
+        <input type="file" accept="image/*" onChange={(e) => handleFile(e.target.files?.[0])} />
+      </label>
 
-      {(form.imageUrl || form.videoUrl) && (
+      {form.imageUrl && (
         <div className="form-preview">
-          {form.imageUrl && <img src={form.imageUrl} alt="preview" />}
-          {form.videoUrl && <video src={form.videoUrl} controls />}
+          <img src={form.imageUrl} alt="preview" />
         </div>
       )}
 

@@ -10,7 +10,6 @@ export interface Lineup {
   title: string
   description: string
   imageUrl?: string
-  videoUrl?: string
 }
 
 export interface MapInfo {

@@ -5,6 +5,7 @@ import { LineupManager } from './components/LineupManager'
 import { MAPS, AGENTS } from './data/maps'
 import { LINEUPS } from './data/lineups'
 import { loadCustomLineups, saveCustomLineups } from './lib/lineupStorage'
+import { loadCloudLineups } from './lib/cloudLineups'
 import type { Lineup } from './data/types'
 import './App.css'
 
@@ -17,6 +18,7 @@ export default function App() {
   const [agent, setAgent] = useState<string>('Tous')
   const [site, setSite] = useState<string>('Tous')
   const [customLineups, setCustomLineups] = useState<Lineup[]>([])
+  const [cloudLineups, setCloudLineups] = useState<Lineup[]>([])
 
   useEffect(() => {
     window.overlay?.onClickThroughChanged?.(setClickThrough)
@@ -24,9 +26,10 @@ export default function App() {
 
   useEffect(() => {
     loadCustomLineups().then(setCustomLineups)
+    loadCloudLineups().then(setCloudLineups)
   }, [])
 
-  const allLineups = useMemo(() => [...LINEUPS, ...customLineups], [customLineups])
+  const allLineups = useMemo(() => [...LINEUPS, ...cloudLineups, ...customLineups], [cloudLineups, customLineups])
 
   const currentMap = MAPS.find((m) => m.id === mapId)!
 
@@ -69,7 +72,7 @@ export default function App() {
           className={view === 'manage' ? 'tab active' : 'tab'}
           onClick={() => setView('manage')}
         >
-          Mes line-ups ({customLineups.length})
+          Ajouts locaux ({customLineups.length})
         </button>
       </div>
 

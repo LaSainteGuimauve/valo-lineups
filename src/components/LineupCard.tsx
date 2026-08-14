@@ -21,9 +21,6 @@ export function LineupCard({ lineup }: { lineup: Lineup }) {
         {lineup.agent} · Site {lineup.site} · {lineup.ability}
       </p>
       {lineup.imageUrl && <img src={lineup.imageUrl} alt={lineup.title} className="lineup-media" />}
-      {lineup.videoUrl && (
-        <video src={lineup.videoUrl} controls className="lineup-media" />
-      )}
       <p className="lineup-description">{lineup.description}</p>
     </article>
   )

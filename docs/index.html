@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VALO Lineups — Admin</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>VALO Lineups <span>— Admin</span></h1>
+    <div id="auth-status"></div>
+  </header>
+
+  <main>
+    <section id="auth-panel" class="panel">
+      <h2>Connexion</h2>
+      <p class="hint">
+        Colle un token GitHub avec accès en écriture sur le repo
+        <code>valo-lineups</code> (voir instructions ci-dessous). Le token reste
+        uniquement dans ton navigateur (localStorage), jamais envoyé ailleurs
+        qu'à l'API GitHub.
+      </p>
+      <div class="form-row">
+        <input id="token-input" type="password" placeholder="ghp_..." autocomplete="off" />
+        <button id="token-save" class="btn-primary">Se connecter</button>
+      </div>
+      <details>
+        <summary>Comment créer le token ?</summary>
+        <ol>
+          <li>Va sur <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a></li>
+          <li>Nom libre, expiration à ta convenance</li>
+          <li>Repository access → <strong>Only select repositories</strong> → <code>valo-lineups</code></li>
+          <li>Permissions → <strong>Contents</strong> → <strong>Read and write</strong></li>
+          <li>Generate token, copie-le (il ne sera plus affiché ensuite)</li>
+        </ol>
+      </details>
+    </section>
+
+    <section id="app-panel" class="panel hidden">
+      <div class="panel-header">
+        <h2>Ajouter / éditer un line-up</h2>
+        <button id="logout" class="btn-secondary btn-sm">Se déconnecter</button>
+      </div>
+
+      <form id="lineup-form">
+        <input type="hidden" id="f-id" />
+
+        <div class="form-row">
+          <label>Map
+            <select id="f-map"></select>
+          </label>
+          <label>Site
+            <select id="f-site"></select>
+          </label>
+        </div>
+
+        <div class="form-row">
+          <label>Agent
+            <select id="f-agent"></select>
+          </label>
+          <label>Type de capacité
+            <select id="f-abilityType">
+              <option value="smoke">Smoke</option>
+              <option value="molly">Molotov</option>
+              <option value="flash">Flash</option>
+              <option value="recon">Recon</option>
+              <option value="wall">Mur</option>
+              <option value="trap">Piège</option>
+              <option value="other">Autre</option>
+            </select>
+          </label>
+        </div>
+
+        <label>Nom de la capacité
+          <input id="f-ability" type="text" placeholder="ex: Poison Cloud" required />
+        </label>
+
+        <label>Titre du line-up
+          <input id="f-title" type="text" placeholder="ex: A Main full smoke depuis spawn" required />
+        </label>
+
+        <label>Description / position
+          <textarea id="f-description" rows="3" placeholder="Où se placer, où viser, repères..."></textarea>
+        </label>
+
+        <label>Screenshot
+          <input id="f-image" type="file" accept="image/*" />
+        </label>
+        <div id="image-preview"></div>
+
+        <div class="form-actions">
+          <button type="button" id="form-cancel" class="btn-secondary hidden">Annuler l'édition</button>
+          <button type="submit" id="form-submit" class="btn-primary">Enregistrer sur GitHub</button>
+        </div>
+        <p id="form-status" class="hint"></p>
+      </form>
+    </section>
+
+    <section id="list-panel" class="panel hidden">
+      <h2>Line-ups existants (<span id="list-count">0</span>)</h2>
+      <div class="filters">
+        <select id="filter-map">
+          <option value="">Toutes les maps</option>
+        </select>
+      </div>
+      <ul id="lineup-list"></ul>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
